@@ -1,9 +1,20 @@
-FROM mongo:latest
+# Use an official Node.js runtime as a parent image
+FROM node:latest
 
-# Check if mongodb.conf file exists
-RUN if [ ! -f /etc/mongod.conf ]; then \
-      echo "systemLog:\n  destination: file\n  path: /var/log/mongodb/mongod.log\n  logAppend: true\nstorage:\n  dbPath: /data/db\n  journal:\n    enabled: true\n  engine: wiredTiger\n  wiredTiger:\n    collectionConfig:\n      blockCompressor: zlib\n    indexConfig:\n      prefixCompression: true" > /etc/mongod.conf; \
-    fi
+# Set the working directory to /app
+WORKDIR /app
 
-# Start the MongoDB server with the custom configuration file
-CMD ["mongod", "--config", "/etc/mongod.conf"]
+# Copy package.json and package-lock.json to the container
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the application files to the container
+COPY . .
+
+# Expose port 5000 to the outside world
+EXPOSE 5000
+
+# Define the command to run when the container starts
+CMD ["npm", "start"]

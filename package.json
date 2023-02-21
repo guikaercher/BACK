@@ -4,19 +4,30 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prestart": "docker-compose up -d",
-    "start": "nodemon ./index.js localhost 8080",
+    "migrations": "npx sequelize-cli db:migrate",
+    "migrations-down": "npx sequelize-cli db:migrate:undo",
+    "docker": "docker-compose up --build",
+    "start": "node app",
+    "start-dev": "nodemon app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "awilix": "^8.0.0",
+    "awilix-express": "^8.0.0",
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^6.9.2"
+    "pg": "^8.9.0",
+    "sequelize": "^6.28.0"
   },
   "devDependencies": {
+    "eslint": "^8.34.0",
+    "eslint-plugin-import": "^2.27.5",
+    "module-alias": "^2.2.2",
     "nodemon": "^2.0.20"
   }
 }
