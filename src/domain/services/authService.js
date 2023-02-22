@@ -1,5 +1,5 @@
 const createAuthService = ({ userRepository, jwt }) => {
-  const secret = 'mysecretkey';
+  const secret = process.env.JWT_SECRET;
   const getSecret = () => secret;
 
   const authenticate = async (login, password) => {
@@ -11,7 +11,7 @@ const createAuthService = ({ userRepository, jwt }) => {
     if (!isValidPassword) {
       return null;
     }
-    const token = jwt.sign({ id: user.id }, getSecret());
+    const token = jwt.sign({ id: user.id }, getSecret(), { expiresIn: '1h' });
     return token;
   };
 

@@ -1,16 +1,30 @@
 {
     "env": {
-        "browser": true,
-        "commonjs": true,
-        "es2021": true,
-        "node": true
+      "browser": true,
+      "commonjs": true,
+      "es2021": true,
+      "node": true
     },
     "extends": "eslint:recommended",
-    "overrides": [
-    ],
     "parserOptions": {
-        "ecmaVersion": "latest"
+      "ecmaVersion": "latest"
     },
-    "rules": {
+    "rules": {},
+    "globals": {
+      "describe": "readonly",
+      "expect": "readonly",
+      "it": "readonly",
+      "before": "readonly",
+      "beforeEach": "readonly",
+      "after": "readonly",
+      "afterEach": "readonly",
+      "context": "readonly",
+      "suite": "readonly",
+      "test": "readonly",
+      "expect": "readonly",
+      "assert": "readonly",
+      "sinon": "readonly",
+      "chai": "readonly"
     }
-}
+  }
+  

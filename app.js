@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const { scopePerRequest } = require('awilix-express');
 const container = require('./src/infrastructure/ioc/container.js');
 const jwtAuth = require('./src/infrastructure/security/jwtUtils.js');
+const cardLogger = require('./src/infrastructure/logger/cardLogger');
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -14,6 +15,7 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(cors());
 app.use(scopePerRequest(container));
+app.use(cardLogger);
 const jwtLoginMiddleware = jwtAuth(container.resolve('authService'), container.resolve('jwt'))
 
 // Routes
@@ -22,7 +24,6 @@ const router = express.Router();
 router.post('/login', container.resolve('authController').authenticate);
 // Card routes
 router.get('/cards', jwtLoginMiddleware, container.resolve('cardController').getAll);
-router.get('/cards/:id', jwtLoginMiddleware, container.resolve('cardController').getById);
 router.post('/cards', jwtLoginMiddleware, container.resolve('cardController').create);
 router.put('/cards/:id', jwtLoginMiddleware, container.resolve('cardController').update);
 router.delete('/cards/:id', jwtLoginMiddleware, container.resolve('cardController').remove);

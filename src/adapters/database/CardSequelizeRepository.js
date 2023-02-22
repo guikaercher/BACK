@@ -44,8 +44,8 @@ const createCardRepository = ({ cardModel }) => {
       create,
       update,
       remove,
-      getById,
       getAll,
+      getById,
     };
   };
   
